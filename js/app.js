@@ -36,6 +36,9 @@
         size: 1.4,
         backgroundColor: 4737096
     });
+    if ("ontouchstart" in window || navigator.maxTouchPoints) document.querySelectorAll("[data-mobile]").forEach((element => {
+        element.classList.add("mobile");
+    }));
     gsap.to(".main__perehod_img-1", {
         scrollTrigger: {
             trigger: ".main",
@@ -50,7 +53,9 @@
             start: "top top",
             scrub: 1
         },
-        xPercent: -18
+        xPercent: -18,
+        y: 50,
+        opacity: .9
     });
     window["FLS"] = true;
     isWebp();
