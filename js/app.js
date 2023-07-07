@@ -36,9 +36,13 @@
         size: 1.4,
         backgroundColor: 4737096
     });
-    if ("ontouchstart" in window || navigator.maxTouchPoints) document.querySelectorAll("[data-mobile]").forEach((element => {
-        element.classList.add("mobile");
-    }));
+    let isTouch = false;
+    if ("ontouchstart" in window || navigator.maxTouchPoints) {
+        document.querySelectorAll("[data-mobile]").forEach((element => {
+            element.classList.add("mobile");
+        }));
+        isTouch = true;
+    }
     gsap.to(".main__perehod_img-1", {
         scrollTrigger: {
             trigger: ".main",
@@ -57,6 +61,38 @@
         y: 50,
         opacity: .9
     });
+    const coursesCard = document.querySelectorAll(".courses__card");
+    coursesCard.forEach((course => {
+        let timeoutId;
+        const text = course.querySelector(".courses__card_text");
+        const span = text.querySelector("span");
+        course.addEventListener("mouseover", (() => {
+            text.style.height = "100%";
+            text.style.left = "17%";
+            timeoutId = setTimeout((() => {
+                text.style.width = "140%";
+                text.style.left = "-20%";
+                span.style.scale = "1.6";
+            }), 300);
+        }));
+        course.addEventListener("mouseout", (() => {
+            clearTimeout(timeoutId);
+            text.style.height = "74px";
+            text.style.width = "calc(100% - 120px)";
+            text.style.left = "-15px";
+            span.style.scale = "1";
+        }));
+    }));
+    const delayedLinks = document.querySelectorAll("[data-delayed]");
+    delayedLinks.forEach((link => {
+        link.addEventListener("click", (event => {
+            event.preventDefault();
+            link.classList.add("click");
+            setTimeout((() => {
+                window.location.href = link.getAttribute("href");
+            }), 300);
+        }));
+    }));
     window["FLS"] = true;
     isWebp();
 })();
