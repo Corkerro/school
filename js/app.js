@@ -87,10 +87,14 @@
     delayedLinks.forEach((link => {
         link.addEventListener("click", (event => {
             event.preventDefault();
+            const delayTime = isTouch ? 300 : 900;
             link.classList.add("click");
             setTimeout((() => {
                 window.location.href = link.getAttribute("href");
-            }), 300);
+                setTimeout((() => {
+                    link.classList.remove("click");
+                }), 200);
+            }), delayTime);
         }));
     }));
     window["FLS"] = true;
